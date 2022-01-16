@@ -11,59 +11,61 @@
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-form v-model="valid">
-            <v-container>
-              <v-row>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    type="password"
-                    v-model="password"
-                    :rules="passwordRules"
-                    label="Password"
-                    required
-                  ></v-text-field>
-                  <small style="color: red">{{ errorMessage }}</small>
-                </v-col>
+          <div class="form-wrapper">
+            <v-form v-model="valid">
+              <v-container>
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <v-text-field
+                      v-model="email"
+                      :rules="emailRules"
+                      label="E-mail"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12">
+                    <v-text-field
+                      type="password"
+                      v-model="password"
+                      :rules="passwordRules"
+                      label="Password"
+                      required
+                    ></v-text-field>
+                    <small style="color: red">{{ errorMessage }}</small>
+                  </v-col>
 
-                <v-col cols="12" md="12" v-if="isSignUp === false">
-                  <center>
-                    <v-btn @click="SignIn" text :loading="loading"
-                      >SignIn</v-btn
-                    >
-                  </center>
-                </v-col>
-                <v-col cols="12" md="12" v-else>
-                  <center>
-                    <v-btn @click="SignUp" text :loading="loading"
-                      >SignUp</v-btn
-                    >
-                  </center>
-                </v-col>
-                <v-col cols="12" md="12" v-if="isSignUp === true">
-                  <center>
-                    <v-btn text @click="isSignUp = !isSignUp">
-                      <small> I have an account </small>
-                    </v-btn>
-                  </center>
-                </v-col>
-                <v-col cols="12" md="12" v-else>
-                  <center>
-                    <v-btn text @click="isSignUp = !isSignUp">
-                      <small> I have not an account </small>
-                    </v-btn>
-                  </center>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
+                  <v-col cols="12" md="12" v-if="isSignUp === false">
+                    <center>
+                      <v-btn @click="SignIn" text :loading="loading"
+                        >SignIn</v-btn
+                      >
+                    </center>
+                  </v-col>
+                  <v-col cols="12" md="12" v-else>
+                    <center>
+                      <v-btn @click="SignUp" text :loading="loading"
+                        >SignUp</v-btn
+                      >
+                    </center>
+                  </v-col>
+                  <v-col cols="12" md="12" v-if="isSignUp === true">
+                    <center>
+                      <v-btn text @click="isSignUp = !isSignUp">
+                        <small> I have an account </small>
+                      </v-btn>
+                    </center>
+                  </v-col>
+                  <v-col cols="12" md="12" v-else>
+                    <center>
+                      <v-btn text @click="isSignUp = !isSignUp">
+                        <small> I have not an account </small>
+                      </v-btn>
+                    </center>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-form>
+          </div>
         </v-col>
       </v-row>
     </v-card>
@@ -139,7 +141,20 @@ export default {
     height: 500px;
     width: 500px;
     border-radius: 25px;
-    padding: 20px 40px;
+    padding: 20px 40px !important;
+  }
+}
+input {
+  padding: 20px 15px !important;
+}
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+
+  .v-input{
+    margin: 30px 0 !important;
   }
 }
 </style>
