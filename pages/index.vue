@@ -6,18 +6,19 @@
       <v-col cols="12">
         <div class="home-header">
           <div class="header-text">
-            <h1>Do What You Want Not People Want</h1>
+            <h1>WELCOME TO MY BLOG</h1>
+            <h2>Do what you want, not what people want</h2>
             <div class="action-button">
               <v-btn> Action </v-btn>
             </div>
           </div>
         </div>
         <v-col cols="12">
-          <most-view-posts></most-view-posts>
+          <most-view-blogs></most-view-blogs>
         </v-col>
 
         <v-col cols="12" style="padding: 97px 70px !important;background: #dfdfdf;">
-          <more-recent-posts></more-recent-posts>
+          <more-recent-blogs></more-recent-blogs>
         </v-col>
       </v-col>
     </v-row>
@@ -26,10 +27,10 @@
 
 <script>
 import carousel from '~/components/Home/carousel.vue'
-import MostViewPosts from '~/components/Home/most-view-posts.vue'
-import MoreRecentPosts from '~/components/Home/more-recent-posts.vue'
+import MostViewBlogs from '~/components/Home/most-view-blogs.vue'
+import MoreRecentBlogs from '~/components/Home/more-recent-blogs.vue'
 export default {
-  components: { carousel, MostViewPosts, MoreRecentPosts },
+  components: { carousel, MostViewBlogs, MoreRecentBlogs },
   name: 'IndexPage',
 
   methods: {},
@@ -43,11 +44,12 @@ export default {
   background-size: cover;
 }
 .header-text {
-  width: 276px;
+  width: 326px;
   position: relative;
   top: 298px;
   left: 60px;
-  h1 {
+  h1  ,h2{
+    text-transform: uppercase;
     color: #fff;
   }
 }
