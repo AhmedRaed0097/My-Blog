@@ -1,11 +1,12 @@
 <template>
-  <div class="most-view-posts-wrapper">
+  <div class="most-view-blogs-wrapper">
     <v-row
-      v-for="(post, index) in posts"
+      v-for="(blog, index) in blogs"
       :key="index"
-      class="most-view-post-row"
+      class="most-view-blog-row"
       no-gutters
     >
+    
       <v-col
         md="5"
         sm="12"
@@ -18,16 +19,16 @@
         <div
           :class="
             $vuetify.breakpoint.mdAndUp === true
-              ? 'post-body'
-              : 'post-body-small-screen'
+              ? 'blog-body'
+              : 'blog-body-small-screen'
           "
         >
-          <p>{{ post.body }}</p>
-          <div class="view-post-conatiner">
-            <v-btn text class="view-post-btn"
-              >VIEW THE POST
+          <p>{{ blog.body }}</p>
+          <div class="view-blog-conatiner">
+            <v-btn text class="view-blog-btn"
+              >VIEW THE BLOG
+              <img width="20" src="~/assets/icons/right-arrow.png" alt="right-arrow" style="margin-left: 10px;">
 
-              <v-icon dark right> mdi-facebook </v-icon>
             </v-btn>
           </div>
         </div>
@@ -36,14 +37,14 @@
         <div
           :class="
             $vuetify.breakpoint.mdAndUp === true
-              ? 'post-image'
-              : 'post-image-small-screen'
+              ? 'blog-image'
+              : 'blog-image-small-screen'
           "
         >
           <img
             width="100%"
             src="~/assets/images/header-image.jpg"
-            alt="post image"
+            alt="blog image"
           />
         </div>
       </v-col>
@@ -55,7 +56,7 @@
 export default {
   data() {
     return {
-      posts: [
+      blogs: [
         {
           body: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore suscipit pariatur alias repellat iusto, in cupiditate. Quasi sapiente, sint id vero, sunt assumenda consequatur neque, reprehenderit dolorem distinctio aut doloremque.',
           image: '',
@@ -79,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss" >
-.post-body {
+.blog-body {
   height: 100%;
   //   background: red;
   display: flex;
@@ -96,13 +97,13 @@ export default {
     margin: 0 auto;
   }
 }
-.view-post-conatiner {
-  .view-post-btn {
+.view-blog-conatiner {
+  .view-blog-btn {
     padding: 0 5px !important;
     border: 1px solid #ffc86d;
   }
 }
-.post-image-small-screen {
+.blog-image-small-screen {
   @media (max-width: 1263px) and (min-width: 750px) {
     img {
       width: 50vw;
@@ -125,7 +126,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.post-body-small-screen {
+.blog-body-small-screen {
   @media (max-width: 1263px) and (min-width: 750px) {
     gap: 20px;
     p {
@@ -155,6 +156,6 @@ export default {
     font-size: 1rem;
   }
 }
-.post-image {
+.blog-image {
 }
 </style>
