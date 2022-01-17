@@ -3,7 +3,7 @@
     <v-col cols="9">
       <div class="text-wrapper">
         <p>
-          NEVER MISS A POST. REGISTER FOR YOUR FREE ACCOUT <br />
+          NEVER MISS A BLOGS. REGISTER FOR YOUR FREE ACCOUT <br />
           TODAY!
         </p>
       </div>
