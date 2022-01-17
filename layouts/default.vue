@@ -1,5 +1,7 @@
 <template>
   <v-app>
+        <!-- LARGE SCREEN  -->
+
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -7,6 +9,16 @@
       :color="isScrolling === true ? '#ffc86d' : 'transparent'"
     >
       <v-list nav dense>
+         <v-list-item v-if="isLoggedIn" to="/">
+          <v-list-item-title> </v-list-item-title>
+          <v-speacer></v-speacer>
+          <span @click="signOut"> HOME </span>
+        </v-list-item>
+         <v-list-item v-if="isLoggedIn" to="/blogs">
+          <v-list-item-title> </v-list-item-title>
+          <v-speacer></v-speacer>
+          <span @click="signOut"> BLOGS </span>
+        </v-list-item>
         <v-list-item v-if="isLoggedIn" to="auth/register">
           <v-list-item-title> </v-list-item-title>
           <v-speacer></v-speacer>
@@ -15,15 +27,21 @@
 
         <v-list-item v-else>
           <v-list-item-title
-            ><NuxtLink to="auth/register">Register</NuxtLink></v-list-item-title
+            ><NuxtLink to="auth/register">SIGNIN/SIGNUP</NuxtLink></v-list-item-title
           >
         </v-list-item>
+        
       </v-list>
       <!--
                -->
       <!--  -->
     </v-navigation-drawer>
 
+        <!--//  -->
+
+
+
+        <!-- LARGE SCREEN  -->
     <v-app-bar
       app
       flat
@@ -45,17 +63,22 @@
         <div class="left-side">
           <v-list-item>
             <v-list-item-title>
-              <span @click="signOut"> Home </span>
+              <span @click="signOut"> HOME </span>
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <span @click="signOut"> About </span>
+              <NuxtLink to="/blogs">
+              <span @click="signOut"> BLOGS </span>
+              </NuxtLink>
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <span @click="signOut"> Last Posts </span>
+              <NuxtLink to="/blogs/create-blog">
+
+              <span >CREATE BLOG</span>
+              </NuxtLink>
             </v-list-item-title>
           </v-list-item>
         </div>
@@ -68,7 +91,7 @@
           <v-list-item v-else>
             <v-list-item-title
               ><NuxtLink class="register-link" to="auth/register"
-                >Register</NuxtLink
+                >SIGNIN/SIGNUP</NuxtLink
               ></v-list-item-title
             >
           </v-list-item>
@@ -85,7 +108,7 @@
   </v-app>
 </template>
 <script>
-import Footer from '~/components/footer.vue'
+import Footer from '~/components/FooterComponent.vue'
 
 export default {
   name: 'DefaultLayout',
