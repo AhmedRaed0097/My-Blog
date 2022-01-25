@@ -2,7 +2,28 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
-// *{
-//     padding: 0 !important;
-//     margin: 0 !important;
-//   }
+@font-face {
+    font-family: 'Cairo';
+    src: url('~/assets/fonts/Cairo/Cairo-VariableFont_wght.ttf');
+}
+@font-face {
+    font-family: 'Lobster';
+    src: url('~/assets/fonts/Lobster/Lobster-Regular.ttf');
+}
+@font-face {
+    font-family: 'Patrick';
+    src: url('~/assets/fonts/Patrick_Hand_SC/PatrickHandSC-Regular.ttf');
+}
+@font-face {
+    font-family: 'Raleway-Italic';
+    src: url('~/assets/fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf');
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url('~/assets/fonts/Raleway/Raleway-VariableFont_wght.ttf');
+}
+
+*{
+  font-family: 'Raleway';
+
+}

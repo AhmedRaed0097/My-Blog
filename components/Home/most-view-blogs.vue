@@ -1,7 +1,7 @@
 <template>
   <div class="most-view-blogs-wrapper">
     <v-row
-      v-for="(blog, index) in blogs"
+      v-for="(blog, index) in blogs.slice(0,4)"
       :key="index"
       class="most-view-blog-row"
       no-gutters
@@ -23,7 +23,7 @@
               : 'blog-body-small-screen'
           "
         >
-          <p>{{ blog.body }}</p>
+          <p>{{ blog.title }}</p>
           <div class="view-blog-conatiner">
             <v-btn text class="view-blog-btn"
               >VIEW THE BLOG
@@ -56,26 +56,14 @@
 export default {
   data() {
     return {
-      blogs: [
-        {
-          body: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore suscipit pariatur alias repellat iusto, in cupiditate. Quasi sapiente, sint id vero, sunt assumenda consequatur neque, reprehenderit dolorem distinctio aut doloremque.',
-          image: '',
-        },
-        {
-          body: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore suscipit pariatur alias repellat iusto, in cupiditate. Quasi sapiente, sint id vero, sunt assumenda consequatur neque, reprehenderit dolorem distinctio aut doloremque.',
-          image: '',
-        },
-        {
-          body: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore suscipit pariatur alias repellat iusto, in cupiditate. Quasi sapiente, sint id vero, sunt assumenda consequatur neque, reprehenderit dolorem distinctio aut doloremque.',
-          image: '',
-        },
-        {
-          body: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore suscipit pariatur alias repellat iusto, in cupiditate. Quasi sapiente, sint id vero, sunt assumenda consequatur neque, reprehenderit dolorem distinctio aut doloremque.',
-          image: '',
-        },
-      ],
+     
     }
   },
+  computed:{
+    blogs(){
+      return this.$store.state.blogs.blogs
+    }
+  }
 }
 </script>
 
@@ -92,6 +80,7 @@ export default {
   p {
     //   background: blue;
     width: 350px;
+    text-align: center;
     //   height: 250px;
     line-height: 2;
     margin: 0 auto;
@@ -100,7 +89,12 @@ export default {
 .view-blog-conatiner {
   .view-blog-btn {
     padding: 0 5px !important;
-    border: 1px solid #ffc86d;
+      border: 1px solid #ffc86d;
+      transition: .3s ease all;
+    &:hover{
+      background: #ffc86d;
+      border: 1px solid rgb(252, 185, 3);
+    }
   }
 }
 .blog-image-small-screen {

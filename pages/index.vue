@@ -6,10 +6,10 @@
       <v-col cols="12">
         <div class="home-header">
           <div class="header-text">
-            <h1>WELCOME TO MY BLOG</h1>
-            <h2>Do what you want, not what people want</h2>
+            <p :style="$vuetify.breakpoint.mdAndUp?'font-size: 2em;font-weight: bold;':'font-size: 18px;colo:#000;font-weight: bold;'">WELCOME TO MY BLOG</p>
+            <p :style="$vuetify.breakpoint.mdAndUp?'font-size: 1em;font-weight: bold;':'font-size: 15px;colo:#000;font-weight: bold;'">Do what you want, not what people want</p>
             <div class="action-button">
-              <v-btn> Action </v-btn>
+              <v-btn text> Let's Go </v-btn>
             </div>
           </div>
         </div>
@@ -44,18 +44,28 @@ export default {
   background-size: cover;
 }
 .header-text {
-  width: 326px;
   position: relative;
   top: 298px;
-  left: 60px;
-  h1  ,h2{
+  text-align: center;
+    font-family: 'Raleway-Italic' ;
+  p{
     text-transform: uppercase;
     color: #fff;
   }
 }
 .action-button{
   .v-btn{
+    margin-top: 10px !important;
     padding: 0 16px !important;
+    border:1px solid #000;
+    transition: 0.8s ease all;
+      color:#fff;
+    &:hover{
+      background: #fff;
+      color:#000;
+    border:1px solid #ffc86d;
+
+    }
   }
   }
 
