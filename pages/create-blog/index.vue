@@ -6,7 +6,7 @@
     </v-col>
     <v-col cols="12" style="margin-top: 50px !important;">
       <div style="height: 500px;">
-        <Editor />
+        <Editor :content="contentEditorBody" />
       </div>
     </v-col>
   </v-row>
@@ -14,7 +14,13 @@
 
 <script>
 import '~/components/Editor.vue'
-export default {}
+export default {
+  data(){
+    return{
+      contentEditorBody:''
+    }
+  }
+}
 </script>
 
 <style>
