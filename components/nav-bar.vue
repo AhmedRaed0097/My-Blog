@@ -25,7 +25,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-title>
-            <NuxtLink class="nav-link" to="/blogs/create-blog">
+            <NuxtLink class="nav-link" to="/create-blog">
               <strong>CREATE BLOG</strong>
             </NuxtLink>
           </v-list-item-title>
@@ -80,7 +80,7 @@
                 <strong > BLOGS </strong>
             </v-list-item-title>
           </v-list-item>
-            <v-list-item to="/blogs/create-blog" exact-active-class="nav-item-active">
+            <v-list-item to="/create-blog" exact-active-class="nav-item-active">
             <v-list-item-title>
                 <strong > CREATE BLOG </strong>
             </v-list-item-title>
