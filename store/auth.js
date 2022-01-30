@@ -5,15 +5,12 @@ export const state = () => ({
 
 export const mutations = {
   SETUSER(state, payload) {
-    console.log('commit');
     state.user.email = payload
     state.loggedIn = true
   },
 }
 export const actions = {
   async signUp({ commit }, payload) {
-    console.log('pay ', payload)
-
     const response = await this.$fire.auth.createUserWithEmailAndPassword(
       payload.email,
       payload.password

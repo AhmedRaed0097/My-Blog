@@ -44,7 +44,6 @@ export default {
           .getElementsByClassName('ql-editor')
           .item(0)
         let pressForFirsttime = false
-        console.log('editor ', editor)
         editor.addEventListener('click', function () {
           if (pressForFirsttime === false) {
             alignLeftButton.classList.remove('ql-active')
@@ -52,9 +51,6 @@ export default {
           }
         })
         editor.classList.add('custom-ql-editor')
-        console.log('editor', editor)
-
-        console.log('alignLeftButton.classList', alignLeftButton.classList)
         alignLeftButton.addEventListener('click', function () {
           alignLeftButton.classList.toggle('ql-active')
 
@@ -67,7 +63,6 @@ export default {
   },
   methods: {
     handleImageAdded(file, Editor, cursorLocation, resetUploader) {
-      console.log('img', file)
       const formData = new FormData()
 
       formData.append('image', file)

@@ -101,7 +101,6 @@ export default {
         .dispatch('auth/signUp', { email: this.email, password: this.password })
         .then((response) => {
           this.loading = false
-          console.log('response ', response)
           this.$router.replace('/')
         })
         .catch((error) => {
@@ -118,7 +117,6 @@ export default {
         })
         .then((response) => {
           this.loading = false
-          console.log('response ', response)
           this.$router.replace('/')
         })
         .catch((error) => {

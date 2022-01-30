@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-        <v-col cols="12">
+        <v-col cols="12" style="padding: 0;">
           <most-view-blogs></most-view-blogs>
         </v-col>
 

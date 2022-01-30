@@ -1,7 +1,7 @@
 <template>
   <div class="most-view-blogs-wrapper">
     <v-row
-      v-for="(blog, index) in blogs.slice(0,4)"
+      v-for="(blog, index) in blogs.slice(0,3)"
       :key="index"
       class="most-view-blog-row"
       no-gutters
@@ -33,20 +33,19 @@
           </div>
         </div>
       </v-col>
-      <v-col md="7" sm="12">
-        <div
+      <v-col md="7" sm="12" style="padding: 0;height: 700px;">
+
+          <img
           :class="
             $vuetify.breakpoint.mdAndUp === true
               ? 'blog-image'
               : 'blog-image-small-screen'
           "
-        >
-          <img
             width="100%"
-            src="~/assets/images/header-image.jpg"
+            height="100%"
+            src="~/assets/images/red-image.jpg"
             alt="blog image"
           />
-        </div>
       </v-col>
     </v-row>
   </div>

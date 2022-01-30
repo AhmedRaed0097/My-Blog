@@ -116,7 +116,6 @@ export default {
 
     },
     searchForBlog(e){
-        // console.log('ss ',e.target.value);
         this.blogs = []
         this.$store.state.blogs.blogs.forEach((blog) => {
             if (blog.title.toUpperCase().includes(e.target.value.toUpperCase())) this.blogs.push(blog)

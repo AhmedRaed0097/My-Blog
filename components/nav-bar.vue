@@ -75,7 +75,7 @@
                 <strong > HOME </strong>
             </v-list-item-title>
           </v-list-item>
-           <v-list-item to="/blogs" exact-active-class="nav-item-active">
+           <v-list-item to="/blogs" active-class="nav-item-active">
             <v-list-item-title>
                 <strong > BLOGS </strong>
             </v-list-item-title>
