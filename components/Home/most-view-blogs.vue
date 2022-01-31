@@ -6,7 +6,7 @@
       class="most-view-blog-row"
       no-gutters
     >
-    
+
       <v-col
         md="5"
         sm="12"
@@ -34,8 +34,21 @@
         </div>
       </v-col>
       <v-col md="7" sm="12" style="padding: 0;height: 700px;">
+          <img
+          v-if="$nuxt.isOnline"
+          :class="
+            $vuetify.breakpoint.mdAndUp === true
+              ? 'blog-image'
+              : 'blog-image-small-screen'
+          "
+            width="100%"
+            height="100%"
+            :src="`https://picsum.photos/id/${Math.floor(Math.random() *400) + 50}/800/700`"
+            alt="blog image"
+          />
 
           <img
+           v-if="$nuxt.isOffline"
           :class="
             $vuetify.breakpoint.mdAndUp === true
               ? 'blog-image'
@@ -46,6 +59,8 @@
             src="~/assets/images/red-image.jpg"
             alt="blog image"
           />
+
+
       </v-col>
     </v-row>
   </div>
@@ -53,15 +68,18 @@
 
 <script>
 export default {
+
   data() {
     return {
-     
     }
   },
   computed:{
     blogs(){
       return this.$store.state.blogs.blogs
     }
+  },
+   methods: {
+
   }
 }
 </script>
