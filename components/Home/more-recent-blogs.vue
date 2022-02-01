@@ -15,16 +15,34 @@
       <v-card width="400" class="blog-card">
         <div class="blog-image">
           <img
+          v-if="$nuxt.isOnline"
+          :class="
+            $vuetify.breakpoint.mdAndUp === true
+              ? 'blog-image'
+              : 'blog-image-small-screen'
+          "
             width="100%"
-            src="~/assets/images/header-image.jpg"
+            height="100%"
+            :src="`https://picsum.photos/id/${Math.floor(Math.random() *400) + 50}/800/700`"
             alt="blog image"
           />
+
+          <img
+           v-if="$nuxt.isOffline"
+          :class="
+            $vuetify.breakpoint.mdAndUp === true
+              ? 'blog-image'
+              : 'blog-image-small-screen'
+          "
+            width="100%"
+            height="100%"
+            src="~/assets/images/red-image.jpg"
+            alt="blog image"
+          />
+
         </div>
         <div class="blog-title">{{blog.title}}</div>
-        <br>
-        <br>
-        <br>
-        <br>
+
         <div class="view-blog-conatiner">
           <v-btn text class="view-blog-btn">VIEW THE blog</v-btn>
         </div>
@@ -62,7 +80,10 @@ export default {
     }
   }
   .blog-title {
+    min-height: 80px;
+    max-height: 120px;
     padding: 5px 8px !important;
+    margin-bottom: 20px;
   }
   .view-blog-conatiner {
     padding: 8px !important;

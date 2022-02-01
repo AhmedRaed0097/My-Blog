@@ -43,7 +43,7 @@
           "
             width="100%"
             height="100%"
-            :src="`https://picsum.photos/id/${Math.floor(Math.random() *400) + 50}/800/700`"
+            :src="`https://picsum.photos/id/${Math.floor(Math.random() *400) + 50}/250/280`"
             alt="blog image"
           />
 
@@ -106,7 +106,7 @@ export default {
 .view-blog-conatiner {
   .view-blog-btn {
     padding: 0 5px !important;
-      border: 1px solid #ffc86d;
+    font-weight: bold;
       transition: .3s ease all;
     &:hover{
       background: #ffc86d;
