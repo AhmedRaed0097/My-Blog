@@ -12,8 +12,8 @@
       lg="3"
       class="card-col"
     >
-      <v-card width="400" class="blog-card">
-        <div class="blog-image">
+      <v-card width="400" height="440" class="blog-card">
+        <div class="blog-image" style="height: 260px; margin-bottom: 10px;">
           <img
           v-if="$nuxt.isOnline"
           :class="
@@ -28,7 +28,8 @@
           />
 
           <img
-           v-if="$nuxt.isOffline"
+          v-if="$nuxt.isOffline"
+
           :class="
             $vuetify.breakpoint.mdAndUp === true
               ? 'blog-image'
@@ -42,7 +43,6 @@
 
         </div>
         <div class="blog-title">{{blog.title}}</div>
-
         <div class="view-blog-conatiner">
           <v-btn text class="view-blog-btn">VIEW THE blog</v-btn>
         </div>
@@ -66,9 +66,9 @@ export default {
   padding: 20px !important;
   display: flex;
   justify-content: center;
-  transition: 1.2s ease all;
+  transition: .5s ease all;
   &:hover {
-    transform: rotate(2deg);
+    transform: rotate(2deg) scale(1.02);
   }
 }
 

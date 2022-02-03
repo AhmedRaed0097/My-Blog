@@ -23,7 +23,7 @@
               : 'blog-body-small-screen'
           "
         >
-          <p>{{ blog.title }}</p>
+          <h1 style="width: 260px;">{{ blog.title }}</h1>
           <div class="view-blog-conatiner">
             <v-btn text class="view-blog-btn"
               >VIEW THE BLOG
@@ -33,8 +33,8 @@
           </div>
         </div>
       </v-col>
-      <v-col md="7" sm="12" style="padding: 0;height: 700px;">
-          <img
+      <v-col md="7" sm="12" style="padding: 0;height: 650px;">
+          <!-- <img
           v-if="$nuxt.isOnline"
           :class="
             $vuetify.breakpoint.mdAndUp === true
@@ -45,10 +45,9 @@
             height="100%"
             :src="`https://picsum.photos/id/${Math.floor(Math.random() *400) + 50}/250/280`"
             alt="blog image"
-          />
+          /> -->
 
           <img
-           v-if="$nuxt.isOffline"
           :class="
             $vuetify.breakpoint.mdAndUp === true
               ? 'blog-image'
@@ -56,7 +55,7 @@
           "
             width="100%"
             height="100%"
-            src="~/assets/images/red-image.jpg"
+            src="~/assets/images/sport-image5.jpg"
             alt="blog image"
           />
 
@@ -94,7 +93,7 @@ export default {
   align-items: center;
   gap: 30px;
 
-  p {
+  h1 {
     //   background: blue;
     width: 350px;
     text-align: center;
@@ -109,8 +108,8 @@ export default {
     font-weight: bold;
       transition: .3s ease all;
     &:hover{
-      background: #ffc86d;
-      border: 1px solid rgb(252, 185, 3);
+      background: rgb(100, 100, 100);
+      color: #fff;
     }
   }
 }

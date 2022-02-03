@@ -6,7 +6,7 @@
       v-model="drawer"
       app
       v-if="$vuetify.breakpoint.mdAndDown"
-      color="#ffc86d"
+      color="#fff"
     >
       <v-list nav dense class="list-small-screen">
         <v-list-item>
@@ -55,7 +55,7 @@
       app
       flat
       width="100vw"
-      :color="isScrolling === true ? '#ffc86d' : 'transparent'"
+      :color="isScrolling === true ? '#fff' : 'transparent'"
     >
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
@@ -213,7 +213,7 @@ export default {
 }
 
 .nav-item-active{
-    border-bottom: 2px solid darkorange;
+    border-bottom: 2px solid #000;
   &::before{
     opacity: 0;
   }

@@ -20,6 +20,10 @@
         <v-col cols="12" style="padding: 97px 70px !important;background: #dfdfdf;">
           <more-recent-blogs></more-recent-blogs>
         </v-col>
+
+        <v-col cols="12">
+          <never-miss></never-miss>
+        </v-col>
       </v-col>
     </v-row>
   </div>
@@ -29,8 +33,9 @@
 import carousel from '~/components/Home/carousel.vue'
 import MostViewBlogs from '~/components/Home/most-view-blogs.vue'
 import MoreRecentBlogs from '~/components/Home/more-recent-blogs.vue'
+import NeverMiss from '~/components/Home/never-miss.vue'
 export default {
-  components: { carousel, MostViewBlogs, MoreRecentBlogs },
+  components: { carousel, MostViewBlogs, MoreRecentBlogs, NeverMiss },
   name: 'IndexPage',
 
   methods: {},

@@ -4,11 +4,6 @@
     <v-main>
       <Nuxt />
     </v-main>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <footer>
       <Footer />
     </footer>
