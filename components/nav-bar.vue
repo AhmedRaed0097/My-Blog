@@ -70,24 +70,28 @@
         v-if="$vuetify.breakpoint.lgAndUp"
       >
         <div class="left-side">
-          <v-list-item to="/" active-class="nav-item-active">
+          <v-list-item class="nav-item" to="/" active-class="nav-item-active">
             <v-list-item-title>
-                <strong > HOME </strong>
+              <strong> HOME </strong>
             </v-list-item-title>
           </v-list-item>
-           <v-list-item to="/blogs" active-class="nav-item-active">
+          <v-list-item class="nav-item" to="/blogs" active-class="nav-item-active">
             <v-list-item-title>
-                <strong > BLOGS </strong>
+              <strong> BLOGS </strong>
             </v-list-item-title>
           </v-list-item>
-            <v-list-item to="/create-blog" exact-active-class="nav-item-active">
+          <v-list-item class="nav-item" to="/create-blog" active-class="nav-item-active">
             <v-list-item-title>
-                <strong > CREATE BLOG </strong>
+              <strong> CREATE BLOG </strong>
             </v-list-item-title>
           </v-list-item>
         </div>
         <div class="right-side">
-          <v-list-item v-if="isLoggedIn" to="auth/register" active-class="active-list-item">
+          <v-list-item
+            v-if="isLoggedIn"
+            to="auth/register"
+            active-class="active-list-item"
+          >
             <v-list-item-title>
               <span @click="signOut"> Logout </span>
             </v-list-item-title>
@@ -174,10 +178,10 @@ export default {
   // gap: 50px;
   padding: 0 40px !important;
   background: transparent;
-   .v-list-item {
-      text-align: center;
-      text-transform: uppercase;
-    }
+  .v-list-item {
+    text-align: center;
+    text-transform: uppercase;
+  }
 }
 .left-side {
   display: flex;
@@ -212,15 +216,19 @@ export default {
   background: transparent !important;
 }
 
-.nav-item-active{
-    border-bottom: 2px solid #000;
-  &::before{
+.nav-item-active {
+  border-bottom: 2px solid #000;
+  &::before {
     opacity: 0;
   }
 }
 .v-list-item--active {
-  &::before{
+  &::before {
     opacity: 0;
   }
+}
+.nav-item{
+  margin: 0 20px !important;
+
 }
 </style>

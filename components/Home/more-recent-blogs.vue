@@ -3,6 +3,7 @@
     <v-col cols="12" style="padding: 20px !important">
       <h2 style="text-align: center">More Recent Blogs</h2>
     </v-col>
+    <client-only>
     <v-col
       v-for="(blog, index) in blogs.slice(0, 4)"
       :key="index"
@@ -13,41 +14,52 @@
       class="card-col"
     >
       <v-card width="400" height="440" class="blog-card">
-        <div class="blog-image" style="height: 260px; margin-bottom: 10px;">
+        <div class="blog-image" style="height: 260px; margin-bottom: 10px">
           <img
-          v-if="$nuxt.isOnline"
-          :class="
-            $vuetify.breakpoint.mdAndUp === true
-              ? 'blog-image'
-              : 'blog-image-small-screen'
-          "
+            v-if="$nuxt.isOnline"
+            :class="
+              $vuetify.breakpoint.mdAndUp === true
+                ? 'blog-image'
+                : 'blog-image-small-screen'
+            "
             width="100%"
             height="100%"
-            :src="`https://picsum.photos/id/${Math.floor(Math.random() *400) + 50}/800/700`"
+            :src="`https://picsum.photos/id/${
+              Math.floor(Math.random() * 400) + 50
+            }/800/700`"
             alt="blog image"
           />
 
           <img
-          v-if="$nuxt.isOffline"
-
-          :class="
-            $vuetify.breakpoint.mdAndUp === true
-              ? 'blog-image'
-              : 'blog-image-small-screen'
-          "
+            v-if="$nuxt.isOffline"
+            :class="
+              $vuetify.breakpoint.mdAndUp === true
+                ? 'blog-image'
+                : 'blog-image-small-screen'
+            "
             width="100%"
             height="100%"
-            src="~/assets/images/red-image.jpg"
+            src="~/assets/images/healthy/healthy-image5.jpg"
             alt="blog image"
           />
-
         </div>
-        <div class="blog-title">{{blog.title}}</div>
+        <div class="blog-content" style="padding: 0 10px;">
+          <div class="blog-title">
+            <p>
+              {{ blog.title }}
+            </p>
+          </div>
+          <div class="blog-category" style="margin-top: 25px">
+            <p><strong>Category</strong> : {{ blog.category }}</p>
+          </div>
+        </div>
+
         <div class="view-blog-conatiner">
           <v-btn text class="view-blog-btn">VIEW THE blog</v-btn>
         </div>
       </v-card>
     </v-col>
+    </client-only>
   </v-row>
 </template>
 
@@ -66,7 +78,7 @@ export default {
   padding: 20px !important;
   display: flex;
   justify-content: center;
-  transition: .5s ease all;
+  transition: 0.5s ease all;
   &:hover {
     transform: rotate(2deg) scale(1.02);
   }
@@ -74,17 +86,18 @@ export default {
 
 .blog-card {
   border-radius: 10px !important;
+  // padding: 0 10px;
   .blog-image {
     img {
       border-radius: 10px 10px 0 0;
     }
+    .blog-title {
+      min-height: 80px;
+      max-height: 120px;
+      padding: 5px 8px !important;
+    }
   }
-  .blog-title {
-    min-height: 80px;
-    max-height: 120px;
-    padding: 5px 8px !important;
-    margin-bottom: 20px;
-  }
+
   .view-blog-conatiner {
     padding: 8px !important;
   }

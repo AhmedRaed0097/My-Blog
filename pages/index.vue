@@ -44,7 +44,7 @@ export default {
 <style lang="scss">
 .home-header {
   height: 700px;
-  background-image: url('~/assets/images/header-image.jpg');
+  background-image: url('~/assets/images/design/image1.jpg');
   background-position: center;
   background-size: cover;
 }

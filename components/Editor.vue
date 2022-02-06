@@ -7,56 +7,67 @@
         v-model="content"
         useCustomImageHandler
         @imageAdded="handleImageAdded"
-        placeholder="أدخل محتوى المقال هنا"
+        :placeholder="placeHolder"
         v-show="disabledEditor === false"
       />
     </no-ssr>
-    <div class="blog-actions">
-      <v-btn text>CREATE</v-btn>
-      <v-btn text>CANCLE</v-btn>
-    </div>
   </div>
 </template>
  <script>
 export default {
   props:{
-    content:{
+    placeHolder:{
       type:String,
       default: null
+    },
+    
+    gettingContent:{
+      type:String,
+      default: null
+    },
+
+  },
+  watch:{
+    content(){
+      this.$emit('contentChange',this.content)
     }
   },
   data() {
     return {
-      
+      content:'',
       disabledEditor: true,
     }
   },
   created() {
+      if(this.gettingContent){
+        this.content = this.gettingContent
+
+      }
     if (process.client) {
       setTimeout(() => {
-        const alignLeftButton = window.document
-          .getElementsByClassName('ql-align')
-          .item(0)
-        const alignRightButton = window.document
-          .getElementsByClassName('ql-align')
-          .item(2)
-        const editor = window.document
-          .getElementsByClassName('ql-editor')
-          .item(0)
-        let pressForFirsttime = false
-        editor.addEventListener('click', function () {
-          if (pressForFirsttime === false) {
-            alignLeftButton.classList.remove('ql-active')
-            alignRightButton.classList.add('ql-active')
-          }
-        })
-        editor.classList.add('custom-ql-editor')
-        alignLeftButton.addEventListener('click', function () {
-          alignLeftButton.classList.toggle('ql-active')
+    //     const alignLeftButton = window.document
+    //       .getElementsByClassName('ql-align')
+    //       .item(0)
+    //     const alignRightButton = window.document
+    //       .getElementsByClassName('ql-align')
+    //       .item(2)
+    //     const editor = window.document
+    //       .getElementsByClassName('ql-editor')
+    //       .item(0)
+    //     let pressForFirsttime = false
+    //     editor.addEventListener('click', function () {
+    //       if (pressForFirsttime === false) {
+    //         alignLeftButton.classList.remove('ql-active')
+    //         alignRightButton.classList.add('ql-active')
+    //       }
+    //     })
+    //     editor.classList.add('custom-ql-editor')
+    //     alignLeftButton.addEventListener('click', function () {
+    //       alignLeftButton.classList.toggle('ql-active')
 
-          editor.classList.remove('custom-ql-editor')
-          pressForFirsttime = true
-        })
+    //       editor.classList.remove('custom-ql-editor')
+    //       pressForFirsttime = true
+    //     })
         this.disabledEditor = false
       }, 2000)
     }
@@ -110,17 +121,5 @@ export default {
 }
 .custom-ql-editor {
   text-align: right !important;
-}
-.blog-actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
-  height: 70px;
-  .v-btn {
-    border: 1px solid darkorange;
-    color: #000;
-    font-weight: bold;
-  }
 }
 </style>

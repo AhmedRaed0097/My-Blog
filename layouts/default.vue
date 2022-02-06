@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <Nav />
-    <v-main>
-      <Nuxt />
+    <v-main style="padding: 0;">
+      <Nuxt style="padding-top: 64px;" />
     </v-main>
-    <footer>
+    <footer style="margin-top: 100px;">
       <Footer />
     </footer>
   </v-app>

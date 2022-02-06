@@ -55,7 +55,8 @@
           "
             width="100%"
             height="100%"
-            src="~/assets/images/sport-image5.jpg"
+            src="~/assets/images/design/image5.jpg"
+
             alt="blog image"
           />
 

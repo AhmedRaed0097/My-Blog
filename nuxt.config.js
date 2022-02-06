@@ -69,6 +69,10 @@ export default {
     baseURL: '/',
   },
 
+  server: {
+    host: '0.0.0.0',
+    port: process.env.PORT || 3000
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/sass/variables.scss'],
