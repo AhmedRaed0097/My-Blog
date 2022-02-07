@@ -142,7 +142,7 @@ export default {
     padding: 20px 40px !important;
   }
 }
-input {
+input[type="text"] {
   padding: 20px 15px !important;
 }
 .form-wrapper {

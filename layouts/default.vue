@@ -4,7 +4,7 @@
     <v-main style="padding: 0;">
       <Nuxt style="padding-top: 64px;" />
     </v-main>
-    <footer style="margin-top: 100px;">
+    <footer>
       <Footer />
     </footer>
   </v-app>

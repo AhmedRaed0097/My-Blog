@@ -10,7 +10,7 @@
           <h1>CREATE NEW BLOG</h1>
         </v-col>
         <v-col cols="12" style="margin-top: 50px !important">
-          <v-card class="form-wrapper" width="400">
+          <v-card class="form-wrapper">
             <v-row>
               <v-col cols="12" class="title-column">
                 <h3>Blog Cover :</h3>
@@ -26,7 +26,7 @@
                     </svg>
                   </div>
                   <img
-                    style="width: 100%;min-height:300px;max-height:500px"
+                    style="width: 100%; min-height: 300px; max-height: 500px"
                     :src="form.cover"
                     alt="Blog-Cover"
                   />
@@ -275,7 +275,7 @@ export default {
       }
       if (this.$refs.form.validate() === true) {
         if (this.$route.selected_blog_id) {
-          this.$store.dispatch('blogs/updateBlog',this.form).then(()=>{
+          this.$store.dispatch('blogs/updateBlog', this.form).then(() => {
             this.$$router.push('/blogs')
           })
         } else {
@@ -287,7 +287,7 @@ export default {
     },
     selectBlogCover() {
       if (this.$refs.blogCover.files[0]) {
-       this.form.cover = URL.createObjectURL(this.$refs.blogCover.files[0])
+        this.form.cover = URL.createObjectURL(this.$refs.blogCover.files[0])
       }
     },
     deleteCover() {
@@ -306,10 +306,8 @@ export default {
     }
     console.log('form ', this.$route.query.selected_blog_id)
     this.$store.state.blogs.blogs.forEach((blog) => {
-      console.log('blogID ', blog.id)
       if (blog.id == this.$route.query.selected_blog_id) {
         this.form = { ...blog }
-        console.log('blog ', blog)
       }
     })
   },
@@ -320,12 +318,15 @@ export default {
 .create-blog-wrapper {
   background-image: url('~/assets/images/healthy/healthy-image12.jpg');
   background-size: cover;
-  padding-bottom: 190px;
+  min-height: 100vh !important;
+  padding-bottom: 100px;
 }
 .form-wrapper {
   width: 70vw !important ;
+  height: auto;
   margin: 0 auto;
   padding-top: 40px;
+  margin-bottom: 60px;
   .uplaod-section {
     width: 80%;
     height: 250px;
