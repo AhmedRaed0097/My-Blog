@@ -60,11 +60,11 @@
             ></v-textarea>
           </div>
           <div>
-            <h3 class="ml-4">{{ blog.likes_no }} Comments</h3>
+            <h3 class="ml-4">{{ commentsData.length }} Comments</h3>
           </div>
           <div class="hr" />
           <v-card
-            v-for="(comment, index) in commentData"
+            v-for="(comment, index) in commentsData"
             :key="index"
             color="#fff"
             elevation="0"
@@ -76,7 +76,6 @@
                   width="60"
                   src="~/assets/images/avatar.png"
                   class="avatar"
-
                 />
               </v-col>
               <v-col cols="11">
@@ -89,30 +88,84 @@
                 </div>
                 <div class="comment-content mt-2 mb-2">
                   <strong>
-                    {{comment.content}}
+                    {{ comment.content }}
                   </strong>
                 </div>
+                <!-- If the this comment is written by current user  -->
                 <div class="comment-option" v-if="index === 0">
                   <span text>Reply</span>
                   <span text>Edit</span>
-                  <span text>Remove</span>
+                  <menuDialog @confirmTriggerd="deleteComment(index)" activateText="Remove" dialogTitle="ALERT" dialogBody="Are you sure to delete this comment?"  />
+          
                 </div>
                 <div class="comment-option" v-else>
                   <span text>Reply</span>
-                  <img @click="setLike(index)" v-if="comment.isLiked" width="20" src="~/assets/SVG/like-active.svg" alt="like icon" />
-                  <img v-else width="20" src="~/assets/SVG/like.svg" alt="like icon" />
                   <img
-                  v-if="comment.isDisLiked"
+                    v-if="comment.isLiked"
+                    @click="setLike(index)"
+                    width="20"
+                    src="~/assets/SVG/like-active.svg"
+                    alt="like icon"
+                  />
+                  <img
+                    v-else
+                    @click="setLike(index)"
+                    width="20"
+                    src="~/assets/SVG/like.svg"
+                    alt="like icon"
+                  />
+
+                  <span
+                    v-if="comment.likes_no !== 0 && comment.likes_no < 1000000"
+                    style="margin-left: -12px"
+                  >
+                    {{
+                      comment.likes_no > 999
+                        ? comment.likes_no + 'k'
+                        : comment.likes_no
+                    }}</span
+                  >
+                  <span
+                    v-if="comment.likes_no !== 0 && comment.likes_no > 999999"
+                    style="margin-left: -12px"
+                  >
+                    {{ comment.likes_no + 'm' }}</span
+                  >
+
+                  <img
+                    v-if="comment.isDisLiked"
+                    @click="setDisLike(index)"
                     width="20"
                     src="~/assets/SVG/dislike-active.svg"
                     alt="dislike icon"
                   />
                   <img
-                  v-else
+                    v-else
+                    @click="setDisLike(index)"
                     width="20"
                     src="~/assets/SVG/dislike.svg"
                     alt="dislike icon"
                   />
+                  <span
+                    v-if="
+                      comment.disLikes_no !== 0 && comment.disLikes_no < 1000000
+                    "
+                    style="margin-left: -12px"
+                  >
+                    {{
+                      comment.disLikes_no > 999
+                        ? comment.disLikes_no + 'k'
+                        : comment.disLikes_no
+                    }}</span
+                  >
+                  <span
+                    v-if="
+                      comment.disLikes_no !== 0 && comment.disLikes_no > 999999
+                    "
+                    style="margin-left: -12px"
+                  >
+                    {{ comment.disLikes_no + 'm' }}</span
+                  >
                 </div>
               </v-col>
             </v-row>
@@ -124,45 +177,59 @@
 </template>
 
 <script>
+import menuDialog from '@/components/menuDialog.vue'
 export default {
+  components:{
+menuDialog
+  },
   data() {
     return {
       blog: {},
-      commentData: [
+      commentsData: [
         {
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: 'just now',
-          isLiked:true,
-          isDisLiked:false
+          isLiked: true,
+          isDisLiked: false,
+          likes_no: 0,
+          disLikes_no: 0,
         },
         {
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '3 minutes ago',
-          isLiked:false,
-          isDisLiked:false
+          isLiked: false,
+          isDisLiked: false,
+          likes_no: 0,
+          disLikes_no: 0,
         },
         {
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '20 hours ago',
-          isLiked:false,
-          isDisLiked:true
+          isLiked: false,
+          isDisLiked: true,
+          likes_no: 2,
+          disLikes_no: 1,
         },
         {
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '10 weeks ago',
-          isLiked:true,
-          isDisLiked:false
+          isLiked: true,
+          isDisLiked: false,
+          likes_no: 10,
+          disLikes_no: 0,
         },
         {
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '10 days',
-          isLiked:true,
-          isDisLiked:false
+          isLiked: true,
+          isDisLiked: false,
+          likes_no: 1100,
+          disLikes_no: 5,
         },
       ],
       liked: false,
@@ -190,12 +257,44 @@ export default {
         this.blog.likes_no++
       }
     },
-    setLike(){
-
+    setLike(commentIndex) {
+      if (this.commentsData[commentIndex].isDisLiked === true) {
+        this.commentsData[commentIndex].likes_no++
+        this.commentsData[commentIndex].disLikes_no--
+        this.commentsData[commentIndex].isDisLiked = false
+        this.commentsData[commentIndex].isLiked =
+          !this.commentsData[commentIndex].isLiked
+      } else if (this.commentsData[commentIndex].isLiked === true) {
+        this.commentsData[commentIndex].likes_no--
+        this.commentsData[commentIndex].isLiked =
+          !this.commentsData[commentIndex].isLiked
+      } else {
+        this.commentsData[commentIndex].likes_no++
+        this.commentsData[commentIndex].isLiked =
+          !this.commentsData[commentIndex].isLiked
+      }
     },
-    setLike(index){
-      this.commentData[index]
-    }
+    setDisLike(commentIndex) {
+      if (this.commentsData[commentIndex].isLiked === true) {
+        this.commentsData[commentIndex].likes_no--
+        this.commentsData[commentIndex].disLikes_no++
+
+        this.commentsData[commentIndex].isLiked = false
+        this.commentsData[commentIndex].isDisLiked =
+          !this.commentsData[commentIndex].isDisLiked
+      } else if (this.commentsData[commentIndex].isDisLiked === true) {
+        this.commentsData[commentIndex].disLikes_no -= 1
+        this.commentsData[commentIndex].isDisLiked =
+          !this.commentsData[commentIndex].isDisLiked
+      } else {
+        this.commentsData[commentIndex].disLikes_no++
+        this.commentsData[commentIndex].isDisLiked =
+          !this.commentsData[commentIndex].isDisLiked
+      }
+    },
+    deleteComment(commentIndex) {
+      this.commentsData.splice(commentIndex, 1)
+    },
   },
   created() {
     if (this.$route.params.id) {
