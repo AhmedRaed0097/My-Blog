@@ -22,26 +22,54 @@
       <v-col cols="12">
         <section class="comments-section">
           <div class="options-wrapper">
-            <v-btn @click="addLike" text>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <div>
+              <v-btn @click="addLike" icon class="blog-like-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  style="width: 25px"
+                >
+                  <path
+                    :fill="liked ? 'blue' : 'black'"
+                    d="M21.3,10.08A3,3,0,0,0,19,9H14.44L15,7.57A4.13,4.13,0,0,0,11.11,2a1,1,0,0,0-.91.59L7.35,9H5a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17.73a3,3,0,0,0,2.95-2.46l1.27-7A3,3,0,0,0,21.3,10.08ZM7,20H5a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H7Zm13-7.82-1.27,7a1,1,0,0,1-1,.82H9V10.21l2.72-6.12A2.11,2.11,0,0,1,13.1,6.87L12.57,8.3A2,2,0,0,0,14.44,11H19a1,1,0,0,1,.77.36A1,1,0,0,1,20,12.18Z"
+                  />
+                </svg>
+              </v-btn>
+              <small
+                ><strong>
+                  {{ blog.likes_no }}
+                </strong>
+              </small>
+            </div>
+            <v-btn @click="addDisLike" icon class="blog-dislike-btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                style="transform: rotate(180deg); width: 25px; margin-top: 10px"
+              >
                 <path
-                  :fill="liked ? 'blue' : 'black'"
+                  :fill="disliked ? 'blue' : 'black'"
                   d="M21.3,10.08A3,3,0,0,0,19,9H14.44L15,7.57A4.13,4.13,0,0,0,11.11,2a1,1,0,0,0-.91.59L7.35,9H5a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17.73a3,3,0,0,0,2.95-2.46l1.27-7A3,3,0,0,0,21.3,10.08ZM7,20H5a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H7Zm13-7.82-1.27,7a1,1,0,0,1-1,.82H9V10.21l2.72-6.12A2.11,2.11,0,0,1,13.1,6.87L12.57,8.3A2,2,0,0,0,14.44,11H19a1,1,0,0,1,.77.36A1,1,0,0,1,20,12.18Z"
                 />
               </svg>
             </v-btn>
-            <p>{{ blog.likes_no }}</p>
-            <div class="ml-12">
-              <v-rating
-                v-model="rating"
-                color="yellow darken-3"
-                background-color="grey darken-1"
-                empty-icon="$ratingFull"
-                half-increments
-                hover
-                size="20"
-              ></v-rating>
-            </div>
+            <!-- <small
+                ><strong>
+                  {{ blog.dislikes_no }}
+                </strong>
+              </small> -->
+          </div>
+
+          <div class="ml-12">
+            <v-rating
+              v-model="rating"
+              color="yellow darken-3"
+              background-color="grey darken-1"
+              empty-icon="$ratingFull"
+              half-increments
+              hover
+              size="20"
+            ></v-rating>
           </div>
 
           <div class="hr"></div>
@@ -57,8 +85,15 @@
               color="#000"
               outlined
               label="Leave your comment"
-            ></v-textarea>
+            />
           </div>
+          <v-btn
+            text
+            outlined
+            style="width: 100px; position: relative; left: 73px; bottom: 30px;padding: 12px;"
+          >
+            ADD COMMENT</v-btn
+          >
           <div>
             <h3 class="ml-4">{{ commentsData.length }} Comments</h3>
           </div>
@@ -95,8 +130,12 @@
                 <div class="comment-option" v-if="index === 0">
                   <span text>Reply</span>
                   <span text>Edit</span>
-                  <menuDialog @confirmTriggerd="deleteComment(index)" activateText="Remove" dialogTitle="ALERT" dialogBody="Are you sure to delete this comment?"  />
-          
+                  <menuDialog
+                    @confirmTriggerd="deleteComment(index)"
+                    activateText="Remove"
+                    dialogTitle="ALERT"
+                    dialogBody="Are you sure to delete this comment?"
+                  />
                 </div>
                 <div class="comment-option" v-else>
                   <span text>Reply</span>
@@ -179,8 +218,8 @@
 <script>
 import menuDialog from '@/components/menuDialog.vue'
 export default {
-  components:{
-menuDialog
+  components: {
+    menuDialog,
   },
   data() {
     return {
@@ -233,6 +272,7 @@ menuDialog
         },
       ],
       liked: false,
+      disliked: false,
       rating: 4.5,
       items: ['name1', 'name2', 'name3', 'name4', 'name5', 'name6'],
     }
@@ -252,9 +292,28 @@ menuDialog
       if (this.liked === true) {
         this.liked = false
         this.blog.likes_no--
+      } else if (this.disliked === true) {
+        this.disliked = false
+        this.liked = true
+        this.blog.dislikes_no--
+        this.blog.likes_no++
       } else {
         this.liked = true
         this.blog.likes_no++
+      }
+    },
+    addDisLike() {
+      if (this.disliked === true) {
+        this.disliked = false
+        this.blog.dislikes_no--
+      } else if (this.liked === true) {
+        this.liked = false
+        this.disliked = true
+        this.blog.dislikes_no++
+        this.blog.likes_no--
+      } else {
+        this.disliked = true
+        this.blog.dislikes_no++
       }
     },
     setLike(commentIndex) {
@@ -342,6 +401,7 @@ menuDialog
   .options-wrapper {
     display: flex;
     align-items: center;
+    gap: 10px;
     p {
       margin: 0;
     }
