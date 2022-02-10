@@ -23,7 +23,7 @@
         <section class="comments-section">
           <div class="options-wrapper">
             <div>
-              <v-btn @click="addLike" icon class="blog-like-btn">
+              <v-btn @click="setBlogCommentLike" icon class="blog-like-btn">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -41,7 +41,7 @@
                 </strong>
               </small>
             </div>
-            <v-btn @click="addDisLike" icon class="blog-dislike-btn">
+            <v-btn @click="setBlogCommentDisLike" icon class="blog-dislike-btn">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -58,22 +58,28 @@
                   {{ blog.dislikes_no }}
                 </strong>
               </small> -->
-          </div>
-
-          <div class="ml-12">
-            <v-rating
-              v-model="rating"
-              color="yellow darken-3"
-              background-color="grey darken-1"
-              empty-icon="$ratingFull"
-              half-increments
-              hover
-              size="20"
-            ></v-rating>
+            <div class="ml-2 mt-2">
+              <v-rating
+                v-model="rating"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                empty-icon="$ratingFull"
+                half-increments
+                hover
+                size="20"
+              ></v-rating>
+            </div>
           </div>
 
           <div class="hr"></div>
-          <div style="display: flex; gap: 15px; margin-top: 10px">
+          <div
+            style="
+              display: flex;
+              gap: 15px;
+              margin-top: 10px;
+              padding-right: 15px;
+            "
+          >
             <img
               width="35"
               height="35"
@@ -81,19 +87,18 @@
               class="avatar"
             />
             <v-textarea
+              v-model="commentContent"
               auto-grow
               color="#000"
               outlined
               label="Leave your comment"
             />
           </div>
-          <v-btn
-            text
-            outlined
-            style="width: 100px; position: relative; left: 73px; bottom: 30px;padding: 12px;"
-          >
-            ADD COMMENT</v-btn
-          >
+          <center>
+            <v-btn text outlined @click="addNewComment"> ADD COMMENT</v-btn>
+
+            <v-btn text outlined @click="clearComment"> CLEAR </v-btn>
+          </center>
           <div>
             <h3 class="ml-4">{{ commentsData.length }} Comments</h3>
           </div>
@@ -141,14 +146,14 @@
                   <span text>Reply</span>
                   <img
                     v-if="comment.isLiked"
-                    @click="setLike(index)"
+                    @click="setCommentLike(index)"
                     width="20"
                     src="~/assets/SVG/like-active.svg"
                     alt="like icon"
                   />
                   <img
                     v-else
-                    @click="setLike(index)"
+                    @click="setCommentLike(index)"
                     width="20"
                     src="~/assets/SVG/like.svg"
                     alt="like icon"
@@ -173,14 +178,14 @@
 
                   <img
                     v-if="comment.isDisLiked"
-                    @click="setDisLike(index)"
+                    @click="setCommentDisLike(index)"
                     width="20"
                     src="~/assets/SVG/dislike-active.svg"
                     alt="dislike icon"
                   />
                   <img
                     v-else
-                    @click="setDisLike(index)"
+                    @click="setCommentDisLike(index)"
                     width="20"
                     src="~/assets/SVG/dislike.svg"
                     alt="dislike icon"
@@ -224,8 +229,10 @@ export default {
   data() {
     return {
       blog: {},
+      commentContent: '',
       commentsData: [
         {
+          id: 1,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: 'just now',
@@ -235,6 +242,7 @@ export default {
           disLikes_no: 0,
         },
         {
+          id: 2,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '3 minutes ago',
@@ -244,6 +252,7 @@ export default {
           disLikes_no: 0,
         },
         {
+          id: 3,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '20 hours ago',
@@ -253,6 +262,7 @@ export default {
           disLikes_no: 1,
         },
         {
+          id: 4,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '10 weeks ago',
@@ -262,6 +272,7 @@ export default {
           disLikes_no: 0,
         },
         {
+          id: 5,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '10 days',
@@ -277,6 +288,7 @@ export default {
       items: ['name1', 'name2', 'name3', 'name4', 'name5', 'name6'],
     }
   },
+
   methods: {
     infiniteHandler($state) {
       setTimeout(() => {
@@ -288,7 +300,8 @@ export default {
         }
       }, 1000)
     },
-    addLike() {
+
+    setBlogCommentLike() {
       if (this.liked === true) {
         this.liked = false
         this.blog.likes_no--
@@ -302,7 +315,7 @@ export default {
         this.blog.likes_no++
       }
     },
-    addDisLike() {
+    setBlogCommentDisLike() {
       if (this.disliked === true) {
         this.disliked = false
         this.blog.dislikes_no--
@@ -316,7 +329,8 @@ export default {
         this.blog.dislikes_no++
       }
     },
-    setLike(commentIndex) {
+
+    setCommentLike(commentIndex) {
       if (this.commentsData[commentIndex].isDisLiked === true) {
         this.commentsData[commentIndex].likes_no++
         this.commentsData[commentIndex].disLikes_no--
@@ -333,7 +347,7 @@ export default {
           !this.commentsData[commentIndex].isLiked
       }
     },
-    setDisLike(commentIndex) {
+    setCommentDisLike(commentIndex) {
       if (this.commentsData[commentIndex].isLiked === true) {
         this.commentsData[commentIndex].likes_no--
         this.commentsData[commentIndex].disLikes_no++
@@ -351,6 +365,21 @@ export default {
           !this.commentsData[commentIndex].isDisLiked
       }
     },
+    addNewComment() {
+      let date = this.$moment()._d
+      console.log('current ',this.$moment(date).fromNow());
+      this.commentsData.unshift({
+        id: this.commentsData.length + 1,
+        content: this.commentContent,
+        date: this.$moment("2020-04-04 11:45:26.123").fromNow()   ,
+        isLiked: false,
+        isDisLiked: false,
+        likes_no: 0,
+        disLikes_no: 0,
+      })
+      this.commentContent = ''
+    },
+    clearComment() {},
     deleteComment(commentIndex) {
       this.commentsData.splice(commentIndex, 1)
     },
@@ -383,6 +412,7 @@ export default {
   }
   article {
     width: 75%;
+    line-height: 1.5;
     // text-align: center;
     margin-top: 20px;
   }
@@ -401,6 +431,7 @@ export default {
   .options-wrapper {
     display: flex;
     align-items: center;
+    height: 54px;
     gap: 10px;
     p {
       margin: 0;
