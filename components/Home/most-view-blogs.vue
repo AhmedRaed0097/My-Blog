@@ -34,19 +34,6 @@
         </div>
       </v-col>
       <v-col md="7" sm="12" style="padding: 0;height: 650px;">
-          <!-- <img
-          v-if="$nuxt.isOnline"
-          :class="
-            $vuetify.breakpoint.mdAndUp === true
-              ? 'blog-image'
-              : 'blog-image-small-screen'
-          "
-            width="100%"
-            height="100%"
-            :src="`https://picsum.photos/id/${Math.floor(Math.random() *400) + 50}/250/280`"
-            alt="blog image"
-          /> -->
-
           <img
           :class="
             $vuetify.breakpoint.mdAndUp === true

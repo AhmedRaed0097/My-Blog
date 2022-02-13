@@ -71,22 +71,8 @@
       >
         <v-card width="400" class="blog-card">
           <div class="blog-image" style="height: 280px; position: relative">
+
             <img
-              v-if="$nuxt.isOnline"
-              :class="
-                $vuetify.breakpoint.mdAndUp === true
-                  ? 'blog-image'
-                  : 'blog-image-small-screen'
-              "
-              width="100%"
-              height="100%"
-              :src="`https://picsum.photos/id/${
-                Math.floor(Math.random() * 400) + 50
-              }/800/700`"
-              alt="blog image"
-            />
-            <img
-              v-if="$nuxt.isOffline"
               width="100%"
               height="100%"
               :src="require(`~/assets/images/for-all-blogs/${blog.cover}`)"
