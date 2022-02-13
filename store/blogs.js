@@ -29,7 +29,7 @@ export const state = () => ({
 
             category: 'Design',
             date: '2021-09-05',
-            cover: 'image6.jpg',
+            cover: 'image1.jpg',
 
             comments: [
                 {
@@ -53,7 +53,7 @@ export const state = () => ({
             cover: 'image3.jpg',
             comments: [
                 {
-                    
+
                     id: 1,
                     uder_id: 2,
                     data:'2021-1-11',
@@ -235,3 +235,4 @@ export const actions = {
     },
 
 }
+
