@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <no-ssr placeholder="Loading Your Editor...">
+    <client-only placeholder="Loading Your Editor...">
       <p v-show="disabledEditor === true">LOADING</p>
       <vue-editor
         id="editor"
@@ -10,7 +10,7 @@
         :placeholder="placeHolder"
         v-show="disabledEditor === false"
       />
-    </no-ssr>
+    </client-only>
   </div>
 </template>
  <script>
