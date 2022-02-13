@@ -6,7 +6,7 @@
           <img
             width="100%"
             height="400px"
-            src="~/assets/images/design/image2.jpg"
+            :src="require(`~/assets/images/for-all-blogs/${blog.cover}`)"
             alt="blog image"
           />
         </div>
@@ -53,11 +53,11 @@
                 />
               </svg>
             </v-btn>
-            <!-- <small
-                ><strong>
-                  {{ blog.dislikes_no }}
-                </strong>
-              </small> -->
+            <small
+              ><strong>
+                {{ blog.dislikes_no }}
+              </strong>
+            </small>
             <div class="ml-2 mt-2">
               <v-rating
                 v-model="rating"
@@ -127,14 +127,27 @@
                   >
                 </div>
                 <div class="comment-content mt-2 mb-2">
-                  <strong>
+                  <strong v-if="editingCommentId !== comment.id">
                     {{ comment.content }}
                   </strong>
+                  <div v-else class="edit-comment-container">
+                    <div class="field-container" style="width: 80%">
+                      <v-text-field
+                        color="#000"
+                        v-model="editingCommentContent"
+                        @keydown.enter="editComment(comment)"
+                      />
+                    </div>
+                    <div class="actions">
+                      <span @click="editComment(comment)">Edit</span>
+                      <span @click="cancelEdit">Cancel</span>
+                    </div>
+                  </div>
                 </div>
                 <!-- If the this comment is written by current user  -->
                 <div class="comment-option" v-if="index === 0">
-                  <span text>Reply</span>
-                  <span text>Edit</span>
+                  <span @click="makeCommentReplyble(comment)">Reply</span>
+                  <span @click="makeCommentEditable(comment)">Edit</span>
                   <menuDialog
                     @confirmTriggerd="deleteComment(index)"
                     activateText="Remove"
@@ -143,7 +156,7 @@
                   />
                 </div>
                 <div class="comment-option" v-else>
-                  <span text>Reply</span>
+                  <span @click="makeCommentReplyble(comment)">Reply</span>
                   <img
                     v-if="comment.isLiked"
                     @click="setCommentLike(index)"
@@ -211,6 +224,156 @@
                     {{ comment.disLikes_no + 'm' }}</span
                   >
                 </div>
+                <div
+                  class="reply-container"
+                  v-if="replyCommentId === comment.id"
+                >
+                  <img
+                    width="25"
+                    height="25"
+                    src="~/assets/images/avatar.png"
+                    class="avatar"
+                  />
+                  <div class="reply-field-container">
+                    <v-text-field
+                      color="#000"
+                      v-model="replyContent"
+                      label="Enter your reply"
+                      style="font-size: 12px"
+                    />
+                  </div>
+                  <div class="actions">
+                    <span @click="addReply(comment)" style="font-size: 13px"
+                      >Reply</span
+                    >
+                    <span @click="cancelReply" style="font-size: 13px"
+                      >Cancel</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="replies-list-container"
+                  v-if="comment.replies.length > 0"
+                >
+                  <span
+                    @click="showRepliesList(comment.id)"
+                    class="replies-no"
+                    v-if="comment.replies.length === 1"
+                    >{{ comment.replies.length + ' reply' }}</span
+                  >
+                  <span
+                    @click="showRepliesList(comment.id)"
+                    class="replies-no"
+                    v-else
+                    >{{ comment.replies.length + ' replies' }}</span
+                  >
+                </div>
+                <div
+                  class="replies-list"
+                  v-if="showRepliesListId === comment.id"
+                >
+                  <v-row v-for="(reply,i) in comment.replies" :key="reply.id">
+                    <v-col cols="1">
+                      <img
+                        width="25"
+                        height="25"
+                        src="~/assets/images/avatar.png"
+                        class="avatar"
+                      />
+                    </v-col>
+                    <v-col cols="11">
+                      <div class="reply-container">
+                        <div class="user-name">
+                          <strong style="color: #346f99">User Name</strong>
+                          <span
+                            style="
+                              margin-left: 10px;
+                              font-size: 12px;
+                              color: #6d6d6d;
+                            "
+                            >{{ comment.date }}</span
+                          >
+                        </div>
+                        <span
+                          >Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Tempore, blanditiis?</span
+                        >
+                      </div>
+                      <div class="reply-option">
+                        <img
+                          v-if="reply.isLiked"
+                          @click="setReplyLike(comment,i)"
+                          width="15"
+                          src="~/assets/SVG/like-active.svg"
+                          alt="like icon"
+                        />
+                        <img
+                          v-else
+                          @click="setReplyLike(comment,i)"
+                          width="15"
+                          src="~/assets/SVG/like.svg"
+                          alt="like icon"
+                        />
+
+                        <span
+                          v-if="
+                            reply.likes_no !== 0 && reply.likes_no < 1000000
+                          "
+                          style="margin-left: -12px"
+                        >
+                          {{
+                            reply.likes_no > 999
+                              ? reply.likes_no + 'k'
+                              : reply.likes_no
+                          }}</span
+                        >
+                        <span
+                          v-if="reply.likes_no !== 0 && reply.likes_no > 999999"
+                          style="margin-left: -12px"
+                        >
+                          {{ reply.likes_no + 'm' }}</span
+                        >
+
+                        <img
+                          v-if="reply.isDisLiked"
+                          @click="setReplyDisLike(comment,i)"
+                          width="15"
+                          src="~/assets/SVG/dislike-active.svg"
+                          alt="dislike icon"
+                        />
+                        <img
+                          v-else
+                          @click="setReplyDisLike(comment,i)"
+                          width="15"
+                          src="~/assets/SVG/dislike.svg"
+                          alt="dislike icon"
+                        />
+                        <span
+                          v-if="
+                            reply.disLikes_no !== 0 &&
+                            reply.disLikes_no < 1000000
+                          "
+                          style="margin-left: -12px"
+                        >
+                          {{
+                            reply.disLikes_no > 999
+                              ? reply.disLikes_no + 'k'
+                              : reply.disLikes_no
+                          }}</span
+                        >
+                        <span
+                          v-if="
+                            reply.disLikes_no !== 0 &&
+                            reply.disLikes_no > 999999
+                          "
+                          style="margin-left: -12px"
+                        >
+                          {{ reply.disLikes_no + 'm' }}</span
+                        >
+                      </div>
+                    </v-col>
+                  </v-row>
+                </div>
               </v-col>
             </v-row>
           </v-card>
@@ -229,10 +392,16 @@ export default {
   data() {
     return {
       blog: {},
+      editingCommentContent: '',
+      showRepliesListId: null,
+      editingCommentId: null,
+      replyCommentId: null,
       commentContent: '',
+      replyContent: '',
       commentsData: [
         {
           id: 1,
+          userId: 55,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: 'just now',
@@ -240,9 +409,11 @@ export default {
           isDisLiked: false,
           likes_no: 0,
           disLikes_no: 0,
+          replies: [],
         },
         {
           id: 2,
+          userId: 1,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '3 minutes ago',
@@ -250,9 +421,11 @@ export default {
           isDisLiked: false,
           likes_no: 0,
           disLikes_no: 0,
+          replies: [],
         },
         {
           id: 3,
+          userId: 66,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '20 hours ago',
@@ -260,9 +433,11 @@ export default {
           isDisLiked: true,
           likes_no: 2,
           disLikes_no: 1,
+          replies: [],
         },
         {
           id: 4,
+          userId: 102,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '10 weeks ago',
@@ -270,9 +445,11 @@ export default {
           isDisLiked: false,
           likes_no: 10,
           disLikes_no: 0,
+          replies: [],
         },
         {
           id: 5,
+          userId: 547,
           content:
             ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, debitis!',
           date: '10 days',
@@ -280,6 +457,28 @@ export default {
           isDisLiked: false,
           likes_no: 1100,
           disLikes_no: 5,
+          replies: [
+            {
+              id: 1,
+              userId: 2,
+              content: 'I agree with you',
+              data: this.$moment('2020-04-04 11:45:26.123').fromNow(),
+              likes_no: 0,
+              disLikes_no: 0,
+              isLiked: false,
+              isDisLiked: false,
+            },
+            {
+              id: 2,
+              userId: 44,
+              content: 'I do not understand you!',
+              data: this.$moment('2020-04-04 11:45:26.123').fromNow(),
+              likes_no: 0,
+              disLikes_no: 0,
+              isLiked: false,
+              isDisLiked: false,
+            },
+          ],
         },
       ],
       liked: false,
@@ -300,7 +499,14 @@ export default {
         }
       }, 1000)
     },
-
+    makeCommentEditable(comment) {
+      this.editingCommentId = comment.id
+      this.editingCommentContent = comment.content
+    },
+    cancelEdit() {
+      this.editingCommentId = null
+      this.editingCommentContent = ''
+    },
     setBlogCommentLike() {
       if (this.liked === true) {
         this.liked = false
@@ -329,7 +535,6 @@ export default {
         this.blog.dislikes_no++
       }
     },
-
     setCommentLike(commentIndex) {
       if (this.commentsData[commentIndex].isDisLiked === true) {
         this.commentsData[commentIndex].likes_no++
@@ -366,18 +571,95 @@ export default {
       }
     },
     addNewComment() {
+      console.log('here')
       let date = this.$moment()._d
-      console.log('current ',this.$moment(date).fromNow());
+      console.log('current ', this.$moment(date).fromNow())
       this.commentsData.unshift({
         id: this.commentsData.length + 1,
         content: this.commentContent,
-        date: this.$moment("2020-04-04 11:45:26.123").fromNow()   ,
+        date: this.$moment(date).fromNow(),
         isLiked: false,
         isDisLiked: false,
         likes_no: 0,
         disLikes_no: 0,
       })
       this.commentContent = ''
+    },
+    editComment(comment) {
+      console.log('comment ', comment)
+      let index = this.commentsData.indexOf(comment)
+      this.commentsData[index].content = this.editingCommentContent
+      this.editingCommentId = null
+      this.editingCommentContent = ''
+    },
+    makeCommentReplyble(comment) {
+      this.replyCommentId = comment.id
+    },
+    addReply(comment) {
+      let date = this.$moment()._d
+      let index = this.commentsData.indexOf(comment)
+      this.commentsData[index].replies.unshift({
+        id: this.commentsData[index].replies.length + 1,
+        userId: Math.floor(Math.random() * 400),
+        content: this.replyContent,
+        data: this.$moment(date).fromNow(),
+        likes_no: 0,
+        disLikes_no: 0,
+        isLiked: false,
+        isDisLiked: false,
+      })
+      this.replyContent = ''
+    },
+    showRepliesList(commentId) {
+      if (this.showRepliesListId === commentId) {
+        this.showRepliesListId = null
+      } else {
+        this.showRepliesListId = commentId
+      }
+    },
+    cancelReply() {
+      this.replyCommentId = null
+    },
+     setReplyLike(comment,replyIndex) {
+       console.log('comment ',comment);
+       console.log('replyIndex ',replyIndex);
+      if (comment.replies[replyIndex].isDisLiked === true) {
+        comment.replies[replyIndex].isDisLiked = false
+        comment.replies[replyIndex].disLikes_no--
+        comment.replies[replyIndex].isLiked =
+          !comment.replies[replyIndex].isLiked
+        comment.replies[replyIndex].likes_no++
+      } else if (comment.replies[replyIndex].isLiked === true) {
+        comment.replies[replyIndex].likes_no--
+        comment.replies[replyIndex].isLiked =
+          !comment.replies[replyIndex].isLiked
+      } else {
+        comment.replies[replyIndex].likes_no++
+        comment.replies[replyIndex].isLiked =
+          !comment.replies[replyIndex].isLiked
+      }
+    },
+     setReplyDisLike(comment,replyIndex) {
+      if (comment.replies[replyIndex].isLiked === true) {
+        comment.replies[replyIndex].isLiked = false
+        comment.replies[replyIndex].likes_no--
+        comment.replies[replyIndex].isDisLiked =
+          !comment.replies[replyIndex].isDisLiked
+        comment.replies[replyIndex].disLikes_no++
+
+      } else if (comment.replies[replyIndex].isDisLiked === true) {
+        console.log('ddsfg 22020');
+        comment.replies[replyIndex].isDisLiked =
+          !comment.replies[replyIndex].isDisLiked
+
+        comment.replies[replyIndex].disLikes_no--
+
+
+      } else {
+        comment.replies[replyIndex].disLikes_no++
+        comment.replies[replyIndex].isDisLiked =
+          !comment.replies[replyIndex].isDisLiked
+      }
     },
     clearComment() {},
     deleteComment(commentIndex) {
@@ -459,6 +741,64 @@ export default {
     &:hover {
       font-weight: bold;
     }
+  }
+}
+.reply-option {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+}
+.edit-comment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  min-width: 130px;
+  padding: 10px 15px;
+
+  span {
+    cursor: pointer;
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}
+.reply-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  .reply-field-container {
+    width: 500px;
+    * {
+      margin: 0 !important;
+    }
+    .v-label {
+      font-size: 12px !important;
+    }
+  }
+}
+.replies-list-container {
+  .replies-no {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #2385ff;
+    cursor: pointer;
+  }
+}
+.replies-list {
+  margin-top: 20px;
+  .reply-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding-right: 15px;
+    font-size: 13px;
+    font-weight: bold;
   }
 }
 </style>

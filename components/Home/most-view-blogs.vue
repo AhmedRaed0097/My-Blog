@@ -1,7 +1,7 @@
 <template>
   <div class="most-view-blogs-wrapper">
     <v-row
-      v-for="(blog, index) in blogs.slice(0,3)"
+      v-for="(blog, index) in blogs.slice(7,10)"
       :key="index"
       class="most-view-blog-row"
       no-gutters
@@ -25,7 +25,7 @@
         >
           <h1 style="width: 260px;">{{ blog.title }}</h1>
           <div class="view-blog-conatiner">
-            <v-btn text class="view-blog-btn"
+            <v-btn text class="view-blog-btn" :to="`blogs/${blog.id}`"
               >VIEW THE BLOG
               <img width="20" src="~/assets/icons/right-arrow.png" alt="right-arrow" style="margin-left: 10px;">
 
@@ -55,7 +55,7 @@
           "
             width="100%"
             height="100%"
-            src="~/assets/images/design/image5.jpg"
+            :src="require(`~/assets/images/for-all-blogs/${blog.cover}`)"
 
             alt="blog image"
           />

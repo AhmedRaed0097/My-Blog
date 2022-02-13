@@ -5,7 +5,7 @@
     </v-col>
     <client-only>
     <v-col
-      v-for="(blog, index) in blogs.slice(0, 4)"
+      v-for="(blog, index) in blogs.slice(1, 5)"
       :key="index"
       xs="12"
       sm="6"
@@ -39,7 +39,7 @@
             "
             width="100%"
             height="100%"
-            src="~/assets/images/healthy/healthy-image5.jpg"
+            :src="require(`~/assets/images/for-all-blogs/${blog.cover}`)"
             alt="blog image"
           />
         </div>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="view-blog-conatiner">
-          <v-btn text class="view-blog-btn">VIEW THE blog</v-btn>
+          <v-btn text class="view-blog-btn" :to="`blogs/${blog.id}`">VIEW THE blog</v-btn>
         </div>
       </v-card>
     </v-col>

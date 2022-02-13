@@ -9,7 +9,7 @@ export const state = () => ({
 
             category: 'Design',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/design/image7.jpg',
+            cover: 'image7.jpg',
             comments: [
                 {
                     id: 1,
@@ -29,7 +29,7 @@ export const state = () => ({
 
             category: 'Design',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/design/image6.jpg',
+            cover: 'image6.jpg',
 
             comments: [
                 {
@@ -50,7 +50,7 @@ export const state = () => ({
 
             category: 'Design',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/design/image3.jpg',
+            cover: 'image3.jpg',
             comments: [
                 {
                     
@@ -71,7 +71,7 @@ export const state = () => ({
 
             category: 'Design',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/design/image1.jpg',
+            cover: 'image1.jpg',
 
             comments: [
                 {
@@ -92,7 +92,7 @@ export const state = () => ({
 
             category: 'Healthy',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/healthy/healthy-image10.jpg',
+            cover: 'healthy-image10.jpg',
             comments: [
                 {
                     id: 1,
@@ -112,7 +112,7 @@ export const state = () => ({
 
             category: 'Programming',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/prog/image2.jpg',
+            cover: 'image2.jpg',
             comments: [
                 {
                     id: 1,
@@ -130,7 +130,7 @@ export const state = () => ({
             likes_no: 44,
             category: 'Healthy',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/healthy/healthy-image4.jpg',
+            cover: 'healthy-image4.jpg',
 
             comments: [
                 {
@@ -149,7 +149,7 @@ export const state = () => ({
             likes_no: 224,
             category: 'Healthy',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/healthy/healthy-image2.jpg',
+            cover: 'healthy-image2.jpg',
             comments: [
                 {
                     id: 1,
@@ -169,7 +169,7 @@ export const state = () => ({
 
             category: 'Sport',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/sport/sport-image1.jpg',
+            cover: 'sport-image1.jpg',
             comments: [
                 {
                     id: 1,
@@ -189,7 +189,7 @@ export const state = () => ({
 
             category: 'Sport',
             date: '2021-09-05',
-            cover: 'http://127.0.0.1:3000/_nuxt/assets/images/sport/sport-image2.jpg',
+            cover: 'sport-image2.jpg',
             comments: [
                 {
                     id: 1,

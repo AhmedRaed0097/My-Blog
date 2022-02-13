@@ -58,7 +58,7 @@
         </div>
       </v-col>
     </v-row>
-    <v-row class="blogs-list-wrapper">
+    <v-row class="blogs-list-wrapper" v-if="blogs.length > 0">
       <v-col
         v-for="blog in blogs"
         :key="blog.id"
@@ -89,7 +89,7 @@
               v-if="$nuxt.isOffline"
               width="100%"
               height="100%"
-              :src="blog.cover"
+              :src="require(`~/assets/images/for-all-blogs/${blog.cover}`)"
               alt="blog image"
             />
           </div>
@@ -121,6 +121,14 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row v-else>
+      <v-col>
+        <center>
+
+        <span>No Result ...</span>
+        </center>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -140,11 +148,18 @@ export default {
   },
   methods: {
     onSelectCategory(category) {
+      console.log('selected Category ', category)
       this.selectedCategory = category
       this.blogs = []
       if (category !== 'all') {
         this.$store.state.blogs.blogs.forEach((blog) => {
-          if (blog.category === category) this.blogs.push(blog)
+          if (blog.category.toLowerCase() === category) {
+            console.log(
+              'blog.category.toLowerCase() ',
+              blog.category.toLowerCase()
+            )
+            this.blogs.push(blog)
+          }
         })
       } else {
         this.blogs = this.$store.state.blogs.blogs
@@ -165,7 +180,7 @@ export default {
       })
     },
   },
-  created() {
+  mounted() {
     this.blogsList.forEach((blog) => {
       this.blogs.push({ ...blog })
     })
