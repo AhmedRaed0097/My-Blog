@@ -190,6 +190,7 @@
 
 <script>
 import '~/components/Editor.vue'
+
 export default {
   data() {
     return {
@@ -310,6 +311,9 @@ export default {
         this.form = { ...blog }
       }
     })
+  },
+  mounted() {
+    console.log('AWS_ACCESS_KEY_ID', process.env.AWS_ACCESS_KEY_ID)
   },
 }
 </script>

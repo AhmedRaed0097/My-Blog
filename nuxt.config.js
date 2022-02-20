@@ -28,7 +28,6 @@ export default {
     { src: '~plugins/vue-infinite-loading.js', ssr: false },
     { src: '~plugins/keen-slider.js', ssr: false },
     { src: '~/plugins/vuex-persist', ssr: false }
-
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

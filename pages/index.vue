@@ -38,7 +38,11 @@ export default {
   components: { carousel, MostViewBlogs, MoreRecentBlogs, NeverMiss },
   name: 'IndexPage',
 
-  methods: {},
+  methods: {
+
+  },
+
+
 }
 </script>
 <style lang="scss">

@@ -5,8 +5,9 @@
       <vue-editor
         id="editor"
         v-model="content"
+        :editor-options="editorSettings"
         useCustomImageHandler
-        @imageAdded="handleImageAdded"
+        @image-added="handleImageAdded"
         :placeholder="placeHolder"
         v-show="disabledEditor === false"
       />
@@ -20,7 +21,7 @@ export default {
       type:String,
       default: null
     },
-    
+
     gettingContent:{
       type:String,
       default: null
@@ -36,6 +37,14 @@ export default {
     return {
       content:'',
       disabledEditor: true,
+      editorSettings: {
+        modules: {
+          imageDrop: true,
+          imageResize: {
+            modules: ['Resize', 'DisplaySize', 'Toolbar']
+          }
+        }
+      }
     }
   },
   created() {
@@ -73,22 +82,16 @@ export default {
     }
   },
   methods: {
-    handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      async handleImageAdded (file, Editor, cursorLocation, resetUploader) {
+        console.log('change');
       const formData = new FormData()
 
       formData.append('image', file)
-
-      const config = {
-        headers: {
-          // header setting
-        },
-      }
-
-      this.$axios
-        .$post('/api_url', formData, config)
+      await this.$axios
+        .$post('https://testing-api.sumaya369.net/v1/admin/front-end-upload-image', formData)
 
         .then((result) => {
-          const url = result.data.url // Get url from response
+          const url = result.data.image // Get url from response
 
           Editor.insertEmbed(cursorLocation, 'image', url)
 
@@ -100,7 +103,7 @@ export default {
 
           console.log(err)
         })
-    },
+    }
   },
 }
 </script>
